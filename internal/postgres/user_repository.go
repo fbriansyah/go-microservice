@@ -21,8 +21,8 @@ func (r UserRepo) table(query string) string {
 
 // Save persists the given user to the database.
 func (r *UserRepo) Save(ctx context.Context, user *user.User) error {
-	query := `INSERT INTO %s (name, email, password, status, created_at, update_at) VALUES ($1, $2 , $3, $4, now(), now())`
-	_, err := r.db.ExecContext(ctx, r.table(query), user.Name, user.Email, user.Password, user.Status)
+	query := `INSERT INTO %s (id, name, email, password, status, created_at, update_at) VALUES ($1, $2 , $3, $4, %5, now(), now())`
+	_, err := r.db.ExecContext(ctx, r.table(query), user.ID, user.Name, user.Email, user.Password, user.Status)
 	return err
 }
 

@@ -16,6 +16,7 @@ type User struct {
 func NewUser(name, email, password string) *User {
 	status := domain.Active
 	return &User{
+		ID:       uuid.New(),
 		Name:     name,
 		Email:    email,
 		Password: password,
