@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS users.users;
+
+DROP SCHEMA users CASCADE;
