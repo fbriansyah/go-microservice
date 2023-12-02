@@ -11,6 +11,7 @@ import (
 type (
 	App interface {
 		Commands
+		Queries
 	}
 	Commands interface {
 		CreateUser(ctx context.Context, cmd commands.CreateUserCmd) error
