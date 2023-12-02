@@ -36,6 +36,7 @@ var _ App = (*Application)(nil)
 
 type ApplicationConfig func(*Application) error
 
+// WithUserRepo configures the application to use the specified user repository
 func WithUserRepo(userRepo user.Repository) ApplicationConfig {
 	return func(app *Application) error {
 		app.userRepo = userRepo
@@ -43,9 +44,12 @@ func WithUserRepo(userRepo user.Repository) ApplicationConfig {
 	}
 }
 
+// New creates a new instance of the application
 func New(cfgs ...ApplicationConfig) (*Application, error) {
 	app := &Application{}
 
+	// Iterate through the provided configuration functions,
+	// calling each function in turn to configure the application
 	for _, cfg := range cfgs {
 		err := cfg(app)
 		if err != nil {
@@ -53,6 +57,7 @@ func New(cfgs ...ApplicationConfig) (*Application, error) {
 		}
 	}
 
+	// Registering the commands and queries
 	app.appCommands = appCommands{
 		CreateUserHandler: commands.NewUserHandler(app.userRepo),
 	}
