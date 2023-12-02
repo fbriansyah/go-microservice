@@ -27,7 +27,7 @@ func (r *UserRepo) Save(ctx context.Context, user *user.User) error {
 }
 
 // GetByEmail retrieves a user by their email address
-func (r *UserRepo) GetByEmail(ctx context.Context, email string) (*user.User, error) {
+func (r *UserRepo) FindByEmail(ctx context.Context, email string) (*user.User, error) {
 	// Define the SQL query to retrieve a user by their email address
 	query := `SELECT id, name, email, password, status FROM %s`
 
