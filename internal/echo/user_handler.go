@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/fbriansyah/go-microservice/internal/application/commands"
+	"github.com/fbriansyah/go-microservice/internal/application/queries"
 	"github.com/labstack/echo/v4"
 )
 
@@ -40,5 +41,40 @@ func (s *Server) register(c echo.Context) error {
 			},
 		),
 	)
+}
 
+func (s *Server) login(c echo.Context) error {
+	var req struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+	if err := c.Bind(&req); err != nil {
+		return c.JSON(http.StatusBadRequest, generateErrorResponse(err.Error()))
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	user, err := s.app.FindUserByEmail(ctx, queries.FindUserByEmailQuery{
+		Email:    req.Email,
+		Password: req.Password,
+	})
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, generateErrorResponse(err.Error()))
+	}
+
+	// TODO: Create JWT token
+
+	// TODO: Save JWT token in session manager
+
+	return c.JSON(
+		http.StatusOK,
+		generateSuccessResponse(
+			map[string]any{
+				"user": map[string]any{
+					"name":  user.Name,
+					"email": user.Email,
+				},
+			},
+		),
+	)
 }

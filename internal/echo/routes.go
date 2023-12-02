@@ -13,8 +13,9 @@ func (s *Server) Routes() http.Handler {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
-	group := e.Group("/v1")
-	group.POST("/register", s.register)
+	v1 := e.Group("/v1")
+	v1.POST("/register", s.register)
+	v1.POST("/login", s.login)
 
 	return e
 }
