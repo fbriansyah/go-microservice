@@ -24,7 +24,7 @@ func NewUserHandler(userRepo user.Repository) CreateUserHandler {
 	}
 }
 
-func (h CreateUserHandler) CreateUser(ctx context.Context, cmd *CreateUserCmd) error {
+func (h CreateUserHandler) CreateUser(ctx context.Context, cmd CreateUserCmd) error {
 	password, err := util.HashPassword(cmd.Password)
 	if err != nil {
 		return err
