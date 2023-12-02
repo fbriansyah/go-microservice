@@ -46,6 +46,7 @@ func main() {
 
 	app, err := application.New(
 		application.WithUserRepo(userRepo),
+		application.WithLogger(module.logger),
 	)
 	if err != nil {
 		module.logger.Fatal().Msg(err.Error())

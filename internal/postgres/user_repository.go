@@ -21,8 +21,8 @@ func (r UserRepo) table(query string) string {
 
 // Save persists the given user to the database.
 func (r *UserRepo) Save(ctx context.Context, user *user.User) error {
-	query := `INSERT INTO %s (id, name, email, password, status, created_at, update_at) VALUES ($1, $2 , $3, $4, %5, now(), now())`
-	_, err := r.db.ExecContext(ctx, r.table(query), user.ID, user.Name, user.Email, user.Password, user.Status)
+	query := `INSERT INTO %s (id, name, email, password, status, created_at, updated_at) VALUES ($1, $2 , $3, $4, $5, now(), now())`
+	_, err := r.db.ExecContext(ctx, r.table(query), user.ID, user.Name, user.Email, user.Password, int(user.Status))
 	return err
 }
 
@@ -52,7 +52,7 @@ func (r *UserRepo) FindByEmail(ctx context.Context, email string) (*user.User, e
 
 // Update updates the status of a user to "deleted"
 func (r *UserRepo) Deleted(ctx context.Context, id uuid.UUID) error {
-	query := `UPDATE %s SET status = $1, update_at = now() WHERE id =$2`
+	query := `UPDATE %s SET status = $1, updated_at = now() WHERE id =$2`
 	_, err := r.db.ExecContext(ctx, r.table(query), int(domain.Deleted), id)
 	return err
 }
@@ -115,7 +115,7 @@ func (r *UserRepo) GetByID(ctx context.Context, id uuid.UUID) (*user.User, error
 // Update updates the user details in the database.
 func (r *UserRepo) Update(ctx context.Context, user *user.User) error {
 	// Define the SQL query to update the user details.
-	query := `UPDATE %s SET name = $1, email = $2, password = $3, status = $4, update_at = now() WHERE id =$5`
+	query := `UPDATE %s SET name = $1, email = $2, password = $3, status = $4, updated_at = now() WHERE id =$5`
 
 	// Execute the SQL query with the user details.
 	_, err := r.db.ExecContext(ctx, r.table(query), user.Name, user.Email, user.Password, int(user.Status), user.ID)

@@ -6,6 +6,7 @@ import (
 	"github.com/fbriansyah/go-microservice/internal/application/commands"
 	"github.com/fbriansyah/go-microservice/internal/application/domain/user"
 	"github.com/fbriansyah/go-microservice/internal/application/queries"
+	"github.com/rs/zerolog"
 )
 
 type (
@@ -21,6 +22,7 @@ type (
 	}
 	Application struct {
 		userRepo user.Repository
+		logger   zerolog.Logger
 		appCommands
 		appQueries
 	}
@@ -44,6 +46,13 @@ func WithUserRepo(userRepo user.Repository) ApplicationConfig {
 	}
 }
 
+func WithLogger(logger zerolog.Logger) ApplicationConfig {
+	return func(app *Application) error {
+		app.logger = logger
+		return nil
+	}
+}
+
 // New creates a new instance of the application
 func New(cfgs ...ApplicationConfig) (*Application, error) {
 	app := &Application{}
@@ -59,7 +68,7 @@ func New(cfgs ...ApplicationConfig) (*Application, error) {
 
 	// Registering the commands and queries
 	app.appCommands = appCommands{
-		CreateUserHandler: commands.NewUserHandler(app.userRepo),
+		CreateUserHandler: commands.NewUserHandler(app.userRepo, app.logger),
 	}
 
 	app.appQueries = appQueries{

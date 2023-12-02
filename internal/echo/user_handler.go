@@ -20,6 +20,9 @@ func (s *Server) register(c echo.Context) error {
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, generateErrorResponse(err.Error()))
 	}
+	if req.Name == "" || req.Email == "" || req.Password == "" {
+		return c.JSON(http.StatusBadRequest, generateErrorResponse("name, email and password are required"))
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
