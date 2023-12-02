@@ -3,8 +3,10 @@ module github.com/fbriansyah/go-microservice
 go 1.20
 
 require (
+	github.com/golang-migrate/migrate/v4 v4.16.2
 	github.com/google/uuid v1.4.0
 	github.com/labstack/echo/v4 v4.11.3
+	github.com/lib/pq v1.10.9
 	github.com/rs/zerolog v1.31.0
 	github.com/spf13/viper v1.17.0
 	golang.org/x/crypto v0.16.0
@@ -12,6 +14,8 @@ require (
 
 require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
