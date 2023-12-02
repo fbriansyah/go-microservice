@@ -11,4 +11,5 @@ type Repository interface {
 	GetByID(ctx context.Context, id uuid.UUID) (*User, error)
 	Update(ctx context.Context, user *User) error
 	Deleted(ctx context.Context, id uuid.UUID) error
+	Save(ctx context.Context, user *User) error
 }
