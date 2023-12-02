@@ -26,6 +26,30 @@ func (r *UserRepo) Save(ctx context.Context, user *user.User) error {
 	return err
 }
 
+// GetByEmail retrieves a user by their email address
+func (r *UserRepo) GetByEmail(ctx context.Context, email string) (*user.User, error) {
+	// Define the SQL query to retrieve a user by their email address
+	query := `SELECT id, name, email, password, status FROM %s`
+
+	// Execute the SQL query and retrieve the result
+	row := r.db.QueryRowContext(ctx, r.table(query), email)
+
+	// Create a new user struct to store the retrieved data
+	var u user.User
+
+	// Scan the data into the user struct
+	var status int
+	if err := row.Scan(&u.ID, &u.Name, &u.Email, &u.Password, &status); err != nil {
+		return nil, err
+	}
+
+	// Set the user status
+	u.Status = domain.Status(status)
+
+	// Return the retrieved user
+	return &u, nil
+}
+
 // Update updates the status of a user to "deleted"
 func (r *UserRepo) Deleted(ctx context.Context, id uuid.UUID) error {
 	query := `UPDATE %s SET status = $1, update_at = now() WHERE id =$2`
