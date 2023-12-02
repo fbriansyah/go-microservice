@@ -5,6 +5,7 @@ import (
 
 	"github.com/fbriansyah/go-microservice/internal/application/commands"
 	"github.com/fbriansyah/go-microservice/internal/application/domain/user"
+	"github.com/fbriansyah/go-microservice/internal/application/queries"
 )
 
 type (
@@ -12,14 +13,21 @@ type (
 		Commands
 	}
 	Commands interface {
-		CreateUser(ctx context.Context, cmd *commands.CreateUserCmd) error
+		CreateUser(ctx context.Context, cmd commands.CreateUserCmd) error
+	}
+	Queries interface {
+		FindUserByEmail(ctx context.Context, query queries.FindUserByEmailQuery) (*user.User, error)
 	}
 	Application struct {
 		userRepo user.Repository
 		appCommands
+		appQueries
 	}
 	appCommands struct {
 		commands.CreateUserHandler
+	}
+	appQueries struct {
+		queries.FindUserByEmailHandler
 	}
 )
 
@@ -46,6 +54,10 @@ func New(cfgs ...ApplicationConfig) (*Application, error) {
 
 	app.appCommands = appCommands{
 		CreateUserHandler: commands.NewUserHandler(app.userRepo),
+	}
+
+	app.appQueries = appQueries{
+		FindUserByEmailHandler: queries.NewFindUserByEmailHandler(app.userRepo),
 	}
 
 	return app, nil
