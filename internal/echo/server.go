@@ -30,7 +30,7 @@ func (s *Server) Start() error {
 	// srv is the HTTP server.
 	srv := &http.Server{
 		Addr:    s.address,
-		Handler: nil,
+		Handler: s.Routes(),
 	}
 
 	// ListenAndServe starts the server and listens for incoming requests.
