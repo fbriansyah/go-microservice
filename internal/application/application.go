@@ -2,6 +2,7 @@ package application
 
 import (
 	"context"
+	"errors"
 
 	"github.com/fbriansyah/go-microservice/internal/application/commands"
 	"github.com/fbriansyah/go-microservice/internal/application/domain/user"
@@ -34,6 +35,10 @@ type (
 	}
 )
 
+var (
+	ErrMissingUserRepo = errors.New("missing user repository")
+)
+
 var _ App = (*Application)(nil)
 
 type ApplicationConfig func(*Application) error
@@ -64,6 +69,10 @@ func New(cfgs ...ApplicationConfig) (*Application, error) {
 		if err != nil {
 			return nil, err
 		}
+	}
+
+	if app.userRepo == nil {
+		return nil, ErrMissingUserRepo
 	}
 
 	// Registering the commands and queries
