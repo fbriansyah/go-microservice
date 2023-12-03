@@ -63,9 +63,6 @@ Namun, penting untuk diingat bahwa penerapan DDD bukanlah solusi ajaib dan dapat
 
 Namun, penting untuk diingat bahwa penerapan DDD bukanlah solusi ajaib dan dapat memerlukan pemahaman dan komitmen yang baik dari seluruh tim pengembangan.
 
-### Note:
-- Folder internal detail [/internal](https://go.dev/doc/go1.4#internalpackages).
-
 ## Consequences
 
 - Proses development yang cukup complex.
