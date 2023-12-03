@@ -30,13 +30,13 @@ seperti **/web** atau **/desktop**.
 
 ### Docs Folder /docs
 Di dalam folder ini terdapat beberapa dokumentasi seperti ADL (Agnostic Development Language) yang berisi beberapa keputusan untuk menggunakan
-teknologi atau disign pattern pada aplikasi.
+teknologi atau design pattern pada aplikasi.
 
 ### Internal Folder /internal
 Di dalam folder ini berisi core aplikasi dan juga beberapa adapter seperti **echo**, **logging** dan **postgres**.
 
 ### Application Folder /internal/application
-Folder ini berisi logic dan juga domain. Dalam aplikasi ini menerapkan pattern CQRS (detail bisa dibaca di folder dokumentasi **0002-use-a-ddd.md**).
+Folder ini berisi logic dan juga domain. Dalam aplikasi ini menerapkan pattern CQRS (detail bisa dibaca di folder dokumentasi [0003-cqrs-pattern.md](https://github.com/fbriansyah/go-microservice/blob/main/docs/ADL/0003-cqrs-pattern.md)).
 
 ### Migration Folder /migration
 Folder ini berisi beberapa file migrasi untuk postgres sql.
