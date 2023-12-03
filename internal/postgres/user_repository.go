@@ -29,7 +29,7 @@ func (r *UserRepo) Save(ctx context.Context, user *user.User) error {
 // GetByEmail retrieves a user by their email address
 func (r *UserRepo) FindByEmail(ctx context.Context, email string) (*user.User, error) {
 	// Define the SQL query to retrieve a user by their email address
-	query := `SELECT id, name, email, password, status FROM %s`
+	query := `SELECT id, name, email, password, status FROM %s WHERE email = $1 LIMIT 1`
 
 	// Execute the SQL query and retrieve the result
 	row := r.db.QueryRowContext(ctx, r.table(query), email)
