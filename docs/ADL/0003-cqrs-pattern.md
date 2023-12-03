@@ -29,9 +29,9 @@ Memisahkan tanggung jawab antara operasi membaca dan menulis.
 Masing-masing tanggung jawab memiliki model data dan logika bisnisnya sendiri.
 
 1. **Keuntungan CQRS**:
-  - Kinerja: Memungkinkan pengoptimalan terhadap operasi membaca dan menulis secara terpisah.
-  - Skalabilitas: Meningkatkan kemampuan untuk menangani beban tinggi dengan skalabilitas horizontal.
-  - Fleksibilitas: Memungkinkan penggunaan penyimpanan data yang berbeda untuk operasi membaca dan menulis.
+    - **Kinerja**: Memungkinkan pengoptimalan terhadap operasi membaca dan menulis secara terpisah.
+    - **Skalabilitas**: Meningkatkan kemampuan untuk menangani beban tinggi dengan skalabilitas horizontal.
+    - **Fleksibilitas**: Memungkinkan penggunaan penyimpanan data yang berbeda untuk operasi membaca dan menulis.
 
 1. **Event Sourcing (Opsional)**:
 Seringkali digunakan bersama dengan CQRS.
