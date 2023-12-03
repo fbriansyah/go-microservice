@@ -72,7 +72,7 @@ func Test_CreateUserCommand(t *testing.T) {
 
 func Test_FindByEmailQuery(t *testing.T) {
 	q := queries.FindUserByEmailQuery{
-		Email:    "test@test.com",
+		Email:    "dummy@example.com",
 		Password: "123qweasdzxc",
 	}
 	user, err := app.appQueries.FindUserByEmail(context.Background(), q)
